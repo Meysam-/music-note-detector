@@ -19,14 +19,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  //TODO: think through the way we want to produce outputs
+  cnt++;
   
 
   //In the proceeding code, we assusme that the input array is filled with the right data
   if(cnt == MaxSampelingSize){
       int T = findT();
-      
+      //TODO: think through the way we want to produce outputs
       outputFunction(T);
+      cnt = 0;
   }
 }
 
