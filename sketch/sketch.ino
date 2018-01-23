@@ -1,4 +1,4 @@
-const short MaxSampelingSize = 400;
+const short MaxSampelingSize = 360;
 const short proccessSize = MaxSampelingSize / 2;
 const short inputPin = A0;
 long micros1,micros2;
@@ -31,10 +31,10 @@ void setup() {
 }
 
 void loop() {
-  if(cnt%2) micros1 = micros();
-  else micros2 = micros();
+  if(cnt == 0) micros1 = micros();
+  if(cnt == MaxSampelingSize-1) micros2 = micros();
   input[cnt] = analogRead(inputPin);
-  delayMicroseconds(210);
+  delayMicroseconds(250);
   /**
   Serial.print("On ");
   Serial.print(cnt);
@@ -136,8 +136,9 @@ char* relateNote(float frequency){
 }
 
 void outputFunction(long T){
-    float timeSt = micros1 - micros2;
-    timeSt = 1 / timeSt;
+  
+    float timeSt = micros2 - micros1;
+    timeSt = MaxSampelingSize / timeSt;
     timeSt *= 1000000;
     answer = T;
     answer = 1 / answer;
