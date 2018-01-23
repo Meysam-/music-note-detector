@@ -1,8 +1,7 @@
-
-const short MaxSampelingSize = 425;
+const short MaxSampelingSize = 400;
 const short proccessSize = MaxSampelingSize / 2;
 const short inputPin = A0;
-long milis1,milis2;
+long micros1,micros2;
 
 short input[MaxSampelingSize];
 long cor[proccessSize];
@@ -13,6 +12,8 @@ short threshold;
 long T;
 long test = 0;
 
+float answer;
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(inputPin, INPUT);
@@ -22,7 +23,6 @@ void setup() {
   threshold = 300;
 /**/
   Serial.begin(9600);
-  Serial.print(inputPin);
   // prints title with ending line break
   Serial.println("Meysam & Amirhossein proudly presents:");
   Serial.println("Music note detector");
@@ -31,9 +31,9 @@ void setup() {
 }
 
 void loop() {
-  if(cnt%2) milis1 = micros();
-  else milis2 = micros();
-  input[cnt] = analogRead(A0);
+  if(cnt%2) micros1 = micros();
+  else micros2 = micros();
+  input[cnt] = analogRead(inputPin);
   delayMicroseconds(210);
   /**
   Serial.print("On ");
@@ -44,9 +44,12 @@ void loop() {
   //In the proceeding code, we assusme that the input array is filled with the right data
   cnt++;
   if(cnt == MaxSampelingSize){
-      Serial.println(milis1);
-      Serial.println(milis2);
       T = findT(0);
+      /**
+      Serial.println(micros1);
+      Serial.println(micros2);
+      Serial.println(T);
+      /**/
       outputFunction(T);
       cnt = 0;
   }
@@ -80,6 +83,13 @@ long autocorrelation(short j ,short t0){
 }
 
 void outputFunction(long T){
-    Serial.println(T);
+    float timeSt = micros1 - micros2;
+    timeSt = 1 / timeSt;
+    timeSt *= 1000000;
+    answer = T;
+    answer = 1 / answer;
+    answer *= timeSt;
+
+    Serial.println(answer);
 }
 
