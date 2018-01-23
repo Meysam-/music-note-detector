@@ -82,59 +82,6 @@ long autocorrelation(short j ,short t0){
   return ret;
 }
 
-char* relateNote(float frequency){
-   if(frequency >= 85 && frequency < 92.50)
-         return "F2";
-   if(frequency >= 92.5 && frequency < 98)
-         return "F#2/Gb2";
-   if(frequency >= 98 && frequency < 103.83)
-         return "G2";
-   if(frequency >= 103.83 && frequency < 110.00)
-         return "G#2/Ab2";
-   if(frequency >= 110.00 && frequency < 116.54)
-      return "A2";
-   if(frequency >= 116.54 && frequency < 123.47)
-         return "A#2/Bb2";
-   if(frequency >= 123.47 && frequency < 130.81)
-         return "B2";
-   if(frequency >= 130.81 && frequency < 138.59)
-         return "C3";
-   if(frequency >= 138.59 && frequency < 146.83)
-         return "C#3/Db3";
-   if(frequency >= 146.83 && frequency < 155.56)
-         return "D3";
-   if(frequency >= 155.56 && frequency < 164.81)
-         return "D#3/Eb3";
-   if(frequency >= 164.81 && frequency < 174.61)
-         return "E3";
-   if(frequency >= 174.61 && frequency < 185.00)
-         return "F3";
-   if(frequency >= 185.00 && frequency < 196.00)
-         return "F#3/Gb3";
-   if(frequency >= 196.00 && frequency < 207.65)
-         return "G3";
-   if(frequency >= 207.65 && frequency < 220.00)
-         return "G#3/Ab3";
-   if(frequency >= 220.00 && frequency < 233.08)
-         return "A3";
-   if(frequency >= 233.08 && frequency < 246.94)
-         return "A#3/Bb3";
-   if(frequency >= 246.94 && frequency < 261.63)
-         return "B3";
-   if(frequency >= 261.63 && frequency < 277.18)
-         return "C4";
-   if(frequency >= 277.18 && frequency < 293.63)
-         return "C#4/Db4";
-   if(frequency >= 293.63 && frequency < 311.13)
-         return "D4";
-   if(frequency >= 311.13 && frequency < 329.63)
-         return "D#4/Eb4";
-   if(frequency >= 329.63 && frequency < 349.23)
-         return "E4";
-   if(frequency >= 349.23 && frequency < 369.99)
-         return "F4";
-}
-
 void outputFunction(long T){
   
     float timeSt = micros2 - micros1;
@@ -146,7 +93,59 @@ void outputFunction(long T){
 
     Serial.print(answer);
     Serial.print(" -> ");
-    Serial.println(relateNote(answer));
+    
+    char* note;
+    if(answer >= 85 && answer < 92.50)
+         note = "F2";
+    if(answer >= 92.5 && answer < 98)
+         note = "F#2/Gb2";
+    if(answer >= 98 && answer < 103.83)
+         note = "G2";
+    if(answer >= 103.83 && answer < 110.00)
+         note = "G#2/Ab2";
+    if(answer >= 110.00 && answer < 116.54)
+         note = "A2";
+    if(answer >= 116.54 && answer < 123.47)
+         note = "A#2/Bb2";
+    if(answer >= 123.47 && answer < 130.81)
+         note = "B2";
+    if(answer >= 130.81 && answer < 138.59)
+         note = "C3";
+    if(answer >= 138.59 && answer < 146.83)
+         note = "C#3/Db3";
+    if(answer >= 146.83 && answer < 155.56)
+         note = "D3";
+    if(answer >= 155.56 && answer < 164.81)
+         note = "D#3/Eb3";
+    if(answer >= 164.81 && answer < 174.61)
+         note = "E3";
+    if(answer >= 174.61 && answer < 185.00)
+         note = "F3";
+    if(answer >= 185.00 && answer < 196.00)
+         note = "F#3/Gb3";
+    if(answer >= 196.00 && answer < 207.65)
+         note = "G3";
+    if(answer >= 207.65 && answer < 220.00)
+         note = "G#3/Ab3";
+    if(answer >= 220.00 && answer < 233.08)
+         note = "A3";
+    if(answer >= 233.08 && answer < 246.94)
+         note = "A#3/Bb3";
+    if(answer >= 246.94 && answer < 261.63)
+         note = "B3";
+    if(answer >= 261.63 && answer < 277.18)
+         note = "C4";
+    if(answer >= 277.18 && answer < 293.63)
+         note = "C#4/Db4";
+    if(answer >= 293.63 && answer < 311.13)
+         note = "D4";
+    if(answer >= 311.13 && answer < 329.63)
+         note = "D#4/Eb4";
+    if(answer >= 329.63 && answer < 349.23)
+         note = "E4";
+    if(answer >= 349.23 && answer < 369.99)
+         note = "F4";
+    Serial.println(note);
 }
 
 
