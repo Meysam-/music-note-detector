@@ -3,11 +3,12 @@ const short MaxSampelingSize = 100;
 const short proccessSize = MaxSampelingSize / 2;
 
 short input[MaxSampelingSize];
-short cor[proccessSize];
+long cor[proccessSize];
 
-char cnt;
+short cnt;
 short epsilon;
 short threshold;
+long T;
 
 void setup() {
   // put your setup code here, to run once:
@@ -21,39 +22,42 @@ void loop() {
   // put your main code here, to run repeatedly:
   cnt++;
   
-
   //In the proceeding code, we assusme that the input array is filled with the right data
   if(cnt == MaxSampelingSize){
-      int T = findT();
+      T = findT(0);
       //TODO: think through the way we want to produce outputs
       outputFunction(T);
       cnt = 0;
   }
 }
 
-int findT(){
-  cor[0] = autocorrelation(0);
-  cor[1] = autocorrelation(1);
-  for(int i = 2 ; i < proccessSize ; i++){
-      cor[i] = autocorrelation(i);
+long findT(short j){
+  cor[0] = autocorrelation(j,0);
+  cor[1] = autocorrelation(j,1);
+  for(short i = 2 ; i < proccessSize ; i++){
+      cor[i] = autocorrelation(j,i);
       if(cor[i] > threshold && (cor[i-1]-cor[i-2] > -epsilon && cor[i-1]-cor[i] > -epsilon)){
           return i; 
       }
   }
 }
 
-int autocorrelation(short t0){
-  int ret = 0;
-  int tmp1,tmp2;
-  for(int i = 0 ; i < proccessSize ; i++){
-    tmp1 = input[i];
-    tmp2 = input[i+t0];
+short rightJ(short j, short i){
+  return((j+i+MaxSampelingSize)%MaxSampelingSize);
+}
+
+long autocorrelation(short j ,short t0){
+  long ret = 0;
+  long tmp1,tmp2;
+  for(short i = 0 ; i < proccessSize ; i++){
+    tmp1 = input[rightJ(j,i)];
+    tmp2 = input[rightJ(j,i+t0)];
     ret += tmp1 * tmp2; 
   }
   return ret;
 }
 
-void outputFunction(int T){
+void outputFunction(long T){
   //Just a placeholder for now
 }
 
